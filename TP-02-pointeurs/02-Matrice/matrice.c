@@ -30,7 +30,7 @@ void matrix_print(int64_t matrice[][SIZE]){
 
         for(int j=0;j<SIZE;j++){
 
-            printf("%"PRIu64" ",matrice[i][j]);
+            printf("%"PRId64" ",matrice[i][j]);
 
         }
 

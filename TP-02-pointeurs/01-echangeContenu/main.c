@@ -5,8 +5,7 @@ int main(void)
 {
 	int a;
 	int b;
-	scanf("%d",&a);
-	scanf("%d",&b);
+	scanf("%d %d",&a,&b);
 
 	printf ("a = %d\tb = %d\n", a, b);
 
