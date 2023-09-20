@@ -1,9 +1,11 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <inttypes.h>
+
 #define SIZE 5
 
-void matrix_mult(int64_t matriceResultat[SIZE][SIZE],int64_t m1[SIZE][SIZE], int64_t m2[SIZE][SIZE]){
+void matrix_mult(int64_t matriceResultat[][SIZE],int64_t m1[][SIZE], int64_t m2[][SIZE]){
 
     for(int i=0;i<SIZE;i++){
         for(int j=0;j<SIZE;j++){
@@ -22,13 +24,13 @@ void matrix_mult(int64_t matriceResultat[SIZE][SIZE],int64_t m1[SIZE][SIZE], int
 
 }
 
-void matrix_print(int64_t matrice[SIZE][SIZE]){
+void matrix_print(int64_t matrice[][SIZE]){
 
     for(int i=0;i<SIZE;i++){
 
         for(int j=0;j<SIZE;j++){
 
-            printf("%ld ",matrice[i][j]);
+            printf("%"PRIu64" ",matrice[i][j]);
 
         }
 
