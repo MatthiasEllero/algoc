@@ -13,3 +13,20 @@ void initialiseDate( Date *d){
         scanf("%d", &(*d).annee);
 
 }
+
+Date creerDateParCopie(){
+
+
+        int jour;
+        int mois;
+        int annee;
+        scanf("%d", &jour);
+        scanf("%d", &mois);
+        scanf("%d", &annee);
+        Date date;
+        date.jour = jour;
+        date.mois = mois;
+        date.annee = annee;
+        return date;
+
+}
