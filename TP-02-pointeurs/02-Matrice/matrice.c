@@ -1,56 +1,51 @@
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <inttypes.h>
+#include "matrice.h"
 
-#define SIZE 5
+Matrice* matrix_mult(Matrice* matriceA, Matrice* matriceB){
 
-void matrix_mult(int64_t matriceResultat[][SIZE],int64_t m1[][SIZE], int64_t m2[][SIZE]){
-
-    for(int i=0;i<SIZE;i++){
-        for(int j=0;j<SIZE;j++){
-
+    Matrice* matriceResultat = creerMatrice(0,matriceA->nbLignes,matriceB->nbColonnes);
+    for(int i=0;i<matriceResultat->nbLignes;i++){
+        for(int j=0;j<matriceResultat->nbColonnes;j++){
             int64_t somme = 0;
-            for(int k=0; k<SIZE;k++){
-
-                somme += m1[i][k] * m2[k][j];
-
+            for(int k=0; k<matriceA->nbColonnes;k++){
+                somme += matriceA->valeurs[i][k] * matriceB->valeurs[k][j];
             }
-
-            matriceResultat[i][j] = somme;
-
+            matriceResultat->valeurs[i][j] = somme;
         }
     }
-
+    return matriceResultat;
 }
 
-void matrix_print(int64_t matrice[][SIZE]){
+void matrix_print(Matrice* matrice){
 
-    for(int i=0;i<SIZE;i++){
-
-        for(int j=0;j<SIZE;j++){
-
-            printf("%"PRId64" ",matrice[i][j]);
-
+    for(int i=0;i<matrice->nbLignes;i++){
+        for(int j=0;j<matrice->nbColonnes;j++){
+            printf("%u ",matrice->valeurs[i][j]);
         }
-
         printf("\n");
-
     }
+};
 
-}
+Matrice* creerMatrice(int nbInit, int nbLignes, int nbColonnes){
 
-int main(void) {
+    Matrice* m1;
+    m1 = (Matrice*) malloc(sizeof(Matrice));
+    m1->nbColonnes = nbColonnes, m1->nbLignes = nbLignes;
+    m1->valeurs = (int**) malloc(nbLignes*sizeof(int*));
+    for(int i=0;i<nbLignes;i++){
+        m1->valeurs[i] = (int*) malloc(nbColonnes*sizeof(int));
+        for(int j=0;j<nbColonnes;j++){
+            m1->valeurs[i][j]=nbInit;
+        }
+    }
+    return m1;
+    
+};
 
-//matrices en ligne * colonne
+void detruireMatrice(Matrice* matrice){
 
-int64_t matrice1[][SIZE]={{1,2,3,4,5},{1,2,3,4,5},{1,2,3,4,5},{1,2,3,4,5},{1,2,3,4,5}};
-int64_t matrice2[][SIZE]={{6,7,8,9,10},{6,7,8,9,10},{6,7,8,9,10},{6,7,8,9,10},{6,7,8,9,10}};
-
-int64_t matriceResultat[SIZE][SIZE];
-
-matrix_mult(matriceResultat,matrice1,matrice2);
-matrix_print(matriceResultat);
-
-return EXIT_SUCCESS;
+    for(int i=0;i<matrice->nbLignes;i++){
+        free(matrice->valeurs[i]);
+    };
+    free(matrice->valeurs);
+    free(matrice);
 }

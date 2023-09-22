@@ -12,7 +12,7 @@
             ],
             "cStandard": "c11",
             "intelliSenseMode": "gcc-x64",
-            "compilerPath": "C:\\MinGW\\bin\\gcc"
+            "compilerPath": "C:/MinGW/bin/gcc.exe"
         }
     ],
     "version": 4

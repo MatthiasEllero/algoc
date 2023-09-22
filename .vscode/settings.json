@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "inttypes.h": "c",
+        "matrice.h": "c",
+        "stdlib.h": "c"
     }
 }
