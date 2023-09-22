@@ -16,5 +16,6 @@ typedef struct  {
 void initialiseDate(Date *d);
 void afficherDate(Date *d);
 Date creerDateParCopie();
+Date* newDate();
 
 

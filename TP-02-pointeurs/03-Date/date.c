@@ -16,17 +16,21 @@ void initialiseDate( Date *d){
 
 Date creerDateParCopie(){
 
-
-        int jour;
-        int mois;
-        int annee;
-        scanf("%d", &jour);
-        scanf("%d", &mois);
-        scanf("%d", &annee);
         Date date;
-        date.jour = jour;
-        date.mois = mois;
-        date.annee = annee;
+        scanf("%d", &(date.jour));
+        scanf("%d", (int*) &(date.mois));
+        scanf("%d", &(date.annee));
         return date;
+
+}
+
+Date* newDate(){
+
+        Date* p1 ;
+        p1 = (Date*) malloc(sizeof(Date));
+        scanf("%d", &(p1->jour));
+        scanf("%d", (int*) &(p1->mois));
+        scanf("%d", &(p1->annee));
+        return p1;
 
 }
