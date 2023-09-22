@@ -2,6 +2,13 @@
 
 Matrice* matrix_mult(Matrice* matriceA, Matrice* matriceB){
 
+    if(matriceA ->nbColonnes != matriceB->nbLignes){
+
+            printf("Impossible car tailles des matrices incompatibles");
+            return NULL;
+
+    };
+
     Matrice* matriceResultat = creerMatrice(0,matriceA->nbLignes,matriceB->nbColonnes);
     for(int i=0;i<matriceResultat->nbLignes;i++){
         for(int j=0;j<matriceResultat->nbColonnes;j++){
