@@ -1,89 +1,119 @@
 #include "prixTuring.h"
 
+FILE *lireFichier(char *nomfichier)
+{
 
-FILE* lireFichier(char* nomfichier){
-
-    FILE* fichier;
+    FILE *fichier;
     fichier = fopen(nomfichier, "r");
     return fichier;
-
 }
 
-void fermerFichier(FILE* fichier){
+void fermerFichier(FILE *fichier)
+{
 
     fclose(fichier);
-
 }
 
-int nombreLigneFichier(FILE* fichier){
+int numberOfWinners(FILE *fichier)
+{
 
     int nombreDeLignes = 0;
     char ligne[500]; // Une ligne de 500 caractères max
 
-    while (fgets(ligne, sizeof(ligne), fichier)) {
+    while (fgets(ligne, sizeof(ligne), fichier))
+    {
         nombreDeLignes++;
     };
 
     return nombreDeLignes;
 }
 
-
-/*int nombreInfoLigne(char* uneLigne){
-
-    int nombreInfo = 0;
-    char info[100]; // Une info de 500 caractères max
-
-    while (fgetc(info, sizeof(info), uneLigne)) {
-        nombreInfo++;
-    };
-
-    return nombreInfo;
-
-}*/
-
-char** stockerLignes(FILE* fichier){
-
-
-    int nombreLignes = nombreLigneFichier(fichier);
-    char** tableauLignes = (char**)malloc(sizeof(char*) * 57);
-    
-    for(int i=1;i<nombreLignes;i++){
-
-            char* ligne =(char*) malloc(sizeof(char)*500);
-            fgets(ligne, 500,fichier);
-            tableauLignes[i] = ligne;
+char *readInfoJusque(char delimiteur, FILE *fichier, char *buffer)
+{
+    char character;
+    int compteur = 0;
+    while (character = !delimiteur)
+    {
+        character = fgetc(fichier);
+        buffer[compteur] = character;
+        compteur++;
     }
-    return tableauLignes;
 
+    char *info = (char *)malloc(compteur * sizeof(char));
+    for (int i = 0; i < compteur; i++)
+    {
+        info[i] = buffer[i];
+    }
+
+    return info;
 }
 
-PrixTuring* creerPrixTuring(char* uneLigne){
+char *creerBuffer(int tailleBuffer)
+{
+    return ((char *)malloc(tailleBuffer * sizeof(char)));
+}
 
-    PrixTuring* unPrixTuring =(PrixTuring*) malloc(sizeof(PrixTuring*));
-    //
+void reInitBuffer(char *buffer)
+{
+    char character;
+    int compteur = 0;
+    while (character = !'\0')
+    {
+        buffer[compteur] = '\0';
+        compteur++;
+        character = buffer[compteur];
+    }
+}
+
+PrixTuring *creerPrixTuring(FILE *fichier)
+{
+
+    PrixTuring *unPrixTuring = (PrixTuring *)malloc(sizeof(PrixTuring *));
+
+    char *buffer = creerBuffer(500);
+    unPrixTuring->annee = readInfoJusque(';', fichier, buffer);
+    reInitBuffer(buffer);
+
+    unPrixTuring->nom = readInfoJusque(';', fichier, buffer);
+    reInitBuffer(buffer);
+
+    unPrixTuring->travaux = readInfoJusque('\n', fichier, buffer);
+    free(buffer);
+
     return unPrixTuring;
-
 }
 
-void lirePrixTuring(PrixTuring* unPrixTuring){
+PrixTuring **readWinners(FILE *fichier)
+{
 
-        printf("%d\n", unPrixTuring->annee);
-        printf("%s\n", unPrixTuring->nom);
-        printf("%s\n", unPrixTuring->travaux);
+    int nombreLignes = numberOfWinners(fichier);
+    PrixTuring **tabPrixTuring = (PrixTuring **)malloc(nombreLignes * sizeof(PrixTuring));
+    for (int i = 0; i < nombreLignes; i++)
+    {
 
-}
-
-void detruireTableauLigne(char** tableauLignes, FILE* fichier){
-
-    for(int i=1; i<nombreLigneFichier(fichier);i++){
-
-        free(tableauLignes[i]);
+        tabPrixTuring[i] = creerPrixTuring(fichier);
     }
-
+    return tabPrixTuring;
 }
 
-void detruirePrixTuring(PrixTuring* unPrixTuring){
+void printWinners(PrixTuring *unPrixTuring)
+{
 
-    free(unPrixTuring);
+    printf("%s\n", unPrixTuring->annee);
+    printf("%s\n", unPrixTuring->nom);
+    printf("%s\n", unPrixTuring->travaux);
+}
 
+void detruireTableauPrixTuring(PrixTuring **tabPrixTuring, FILE *fichier)
+{
+
+    for (int i = 0; i < numberOfWinners(fichier); i++)
+    {
+
+        PrixTuring *unPrixTuring = tabPrixTuring[i];
+        free(unPrixTuring->annee);
+        free(unPrixTuring->nom);
+        free(unPrixTuring->travaux);
+        free(unPrixTuring);
+    }
 }

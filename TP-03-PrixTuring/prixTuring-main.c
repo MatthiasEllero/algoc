@@ -15,17 +15,14 @@
 // MAIN
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
 	char filename[] = "turingWinners.csv";
 	char outputFilename[] = "out.csv";
-	FILE* fichier = lireFichier(filename);
-	char** tabLignes = stockerLignes(fichier);
-	PrixTuring* unPrixTuring = creerPrixTuring(tabLignes[0]);
-	//lirePrixTuring(unPrixTuring);
-	printf(tabLignes[0]);
-	detruireTableauLigne(tabLignes, fichier);
-    detruirePrixTuring(unPrixTuring);
+	FILE *fichier = lireFichier(filename);
+	PrixTuring **tabPrixTuring = readWinners(fichier);
+	printWinners(tabPrixTuring[0]);
+	detruireTableauPrixTuring(tabPrixTuring, fichier);
 	fermerFichier(fichier);
 	return EXIT_SUCCESS;
 }
