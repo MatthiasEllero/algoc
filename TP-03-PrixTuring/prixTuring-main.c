@@ -21,10 +21,11 @@ int main(int argc, char** argv)
 	char outputFilename[] = "out.csv";
 	FILE* fichier = lireFichier(filename);
 	char** tabLignes = stockerLignes(fichier);
-	//PrixTuring* unPrixTuring = creerPrixTuring(tabLignes[0]);
+	PrixTuring* unPrixTuring = creerPrixTuring(tabLignes[0]);
 	//lirePrixTuring(unPrixTuring);
+	printf(tabLignes[0]);
 	detruireTableauLigne(tabLignes, fichier);
-    //detruirePrixTuring(unPrixTuring);
-	printf("%s",tabLignes[0]);
+    detruirePrixTuring(unPrixTuring);
+	fermerFichier(fichier);
 	return EXIT_SUCCESS;
 }

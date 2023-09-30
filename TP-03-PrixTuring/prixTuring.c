@@ -45,14 +45,13 @@ char** stockerLignes(FILE* fichier){
 
 
     int nombreLignes = nombreLigneFichier(fichier);
-    char** tableauLignes = (char**)malloc(sizeof(char*) * 100);
+    char** tableauLignes = (char**)malloc(sizeof(char*) * 57);
     
     for(int i=1;i<nombreLignes;i++){
 
-            char* ligne =malloc(sizeof(char*)*100);
-            fgets(ligne, 100,fichier);
+            char* ligne =(char*) malloc(sizeof(char)*500);
+            fgets(ligne, 500,fichier);
             tableauLignes[i] = ligne;
-
     }
     return tableauLignes;
 
@@ -60,8 +59,8 @@ char** stockerLignes(FILE* fichier){
 
 PrixTuring* creerPrixTuring(char* uneLigne){
 
-    PrixTuring* unPrixTuring =malloc(sizeof(PrixTuring*));
-    scanf(uneLigne,"%i;%s;%s\n", unPrixTuring->annee, unPrixTuring->nom, unPrixTuring->travaux);
+    PrixTuring* unPrixTuring =(PrixTuring*) malloc(sizeof(PrixTuring*));
+    //
     return unPrixTuring;
 
 }
