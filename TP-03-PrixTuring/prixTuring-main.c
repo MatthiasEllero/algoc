@@ -19,10 +19,20 @@ int main(int argc, char **argv)
 {
 	char filename[] = "turingWinners.csv";
 	char outputFilename[] = "out.csv";
-	FILE *fichier = lireFichier(filename);
+
+	FILE *fichier = fopen(filename, "r");
+	int nombreLignes = numberOfWinners(fichier);
 	PrixTuring **tabPrixTuring = readWinners(fichier);
-	printWinners(tabPrixTuring[0]);
-	detruireTableauPrixTuring(tabPrixTuring, fichier);
-	fermerFichier(fichier);
+
+	//printf("%s",tabPrixTuring[0]->nom);
+	//printWinners(tabPrixTuring[0]);
+
+	FILE *nouveauFichier = fopen(outputFilename,"w");
+	ecrireToutPrixTuringFichierCSV(nouveauFichier, tabPrixTuring, nombreLignes);
+
+	detruireTableauPrixTuring(tabPrixTuring, nombreLignes);
+
+	fclose(nouveauFichier);
+	fclose(fichier);
 	return EXIT_SUCCESS;
 }

@@ -13,7 +13,6 @@ typedef struct
     char *travaux;
 } PrixTuring;
 
-FILE *lireFichier(char *name);
 void fermerFichier(FILE *fichier);
 int numberOfWinners(FILE *fichier);
 char *readInfoJusque(char delimiteur, FILE *fichier, char *buffer);
@@ -22,4 +21,6 @@ void reInitBuffer(char *buffer);
 PrixTuring *creerPrixTuring(FILE *fichier);
 PrixTuring **readWinners(FILE *fichier);
 void printWinners(PrixTuring *unPrixTuring);
-void detruireTableauPrixTuring(PrixTuring **tabPrixTuring, FILE *fichier);
+void detruireTableauPrixTuring(PrixTuring **tabPrixTuring, int nombreLignes);
+void ecrireUnPrixTuringFichierCSV(FILE* fichier, PrixTuring* unPrixTuring);
+void ecrireToutPrixTuringFichierCSV(FILE* fichier, PrixTuring** tabPrixTuring, int nombreLignes);
