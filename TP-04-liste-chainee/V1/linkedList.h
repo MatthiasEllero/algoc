@@ -1,8 +1,10 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-typedef int Element;
+typedef void* Element;
 
 struct cellule_s {
 	Element val;

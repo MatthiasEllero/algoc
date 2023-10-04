@@ -1,7 +1,5 @@
+#include "linkedList.h"
 #include "liste-chainee.h"
-#include <stdlib.h>
-#include <stdio.h>
-
 
 // retourne vrai si l est vide et faux sinon
 bool estVide(Liste l)
@@ -25,11 +23,6 @@ Liste ajoutTete(Element v, Liste l)
 	l = creer(v);
 	l->suiv = suiv;
 	return l;
-}
-
-void afficheElement(Element e)
-{
-	printf("%i ", e);
 }
 
 // affiche tous les éléments de la liste l
@@ -64,10 +57,6 @@ void afficheListe_r(Liste l)
 	}
 }
 
-void detruireElement(Element e) {}
-
-// Détruit tous les éléments de la liste l
-// version itérative
 void detruire_i(Liste l)
 {
 	Cellule* cellule = l;
@@ -114,12 +103,6 @@ Liste ajoutFin_r(Element v, Liste l)
 		return creer(v);
 	}
 	return(ajoutFin_r(v, l->suiv));
-}
-
-// compare deux elements
-bool equalsElement(Element e1, Element e2)
-{
-	return e1 == e2;
 }
 
 // Retourne un pointeur sur l'élément de la liste l contenant la valeur v ou NULL
