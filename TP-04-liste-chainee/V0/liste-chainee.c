@@ -179,21 +179,29 @@ Liste retirePremier_i(Element v, Liste l)
 // version recursive
 Liste retirePremier_r(Element v, Liste l)
 {
-	Cellule* cellule = l;
-	if(cellule->suiv==NULL){
-		if(!equalsElement(cellule->val, v)){
+	if(estVide(l)){
 		return l;
 	}
+
+	Cellule* celluleADetruire;
+
+	if(equalsElement(l->val,v)){
+		celluleADetruire = l;
+		celluleADetruire->suiv = NULL;
+		l = l->suiv;
+		detruire_r(celluleADetruire);
 	}
-	if(!equalsElement(cellule->val, v)){
-		cherche_r(v, cellule->suiv);
+
+	if(!equalsElement(l->suiv->val,v)){
+		l->suiv = retirePremier_r(v, l->suiv);
 	}
-	if(equalsElement((cellule->suiv)->val, v)){
-		Cellule* celluleADetruire = l->suiv;
-		l->suiv = l->suiv->suiv;
-		free(celluleADetruire);
-	}
+
+	celluleADetruire = l->suiv;
+	celluleADetruire->suiv = NULL;
+	l->suiv = l->suiv->suiv;
+	detruire_r(celluleADetruire);
 	return(l);
+
 }
 
 void afficheEnvers_r(Liste l)
