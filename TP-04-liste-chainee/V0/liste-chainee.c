@@ -100,12 +100,12 @@ void detruire_r(Liste l)
 // version itérative
 Liste ajoutFin_i(Element v, Liste l)
 {	
-	Cellule cellule = *l;
-	while(cellule.suiv!=NULL){
+	Cellule* cellule = l;
+	while(cellule->suiv!=NULL){
 
-		cellule = *cellule.suiv;
+		cellule = cellule->suiv;
 	}
-	cellule.suiv = creer(v);
+	cellule->suiv = creer(v);
 }
 
 // version recursive
@@ -127,14 +127,14 @@ bool equalsElement(Element e1, Element e2)
 // version itérative
 Liste cherche_i(Element v, Liste l)
 {
-	Cellule cellule = *l;
-	if(equalsElement(cellule.val, v)){
+	Cellule* cellule = l;
+	if(equalsElement(cellule->val, v)){
 		return l;
 	}
-	while(cellule.suiv!=NULL){
-		cellule = *cellule.suiv;
-		if(equalsElement(cellule.val, v)){
-		return &cellule;
+	while(cellule->suiv!=NULL){
+		cellule =cellule->suiv;
+		if(equalsElement(cellule->val, v)){
+		return cellule;
 	}
 }
 }
@@ -142,14 +142,14 @@ Liste cherche_i(Element v, Liste l)
 // version récursive
 Liste cherche_r(Element v, Liste l)
 {
-	Cellule cellule = *l;
-	if(cellule.suiv==NULL){
-		if(!equalsElement(cellule.val, v)){
+	Cellule* cellule = l;
+	if(cellule->suiv==NULL){
+		if(!equalsElement(cellule->val, v)){
 		return NULL;
 	}
 	}
-	if(!equalsElement(cellule.val, v)){
-		cherche_r(v, cellule.suiv);
+	if(!equalsElement(cellule->val, v)){
+		cherche_r(v, cellule->suiv);
 	}
 	return(l);
 }
@@ -159,13 +159,42 @@ Liste cherche_r(Element v, Liste l)
 // version itérative
 Liste retirePremier_i(Element v, Liste l)
 {
-	return TODO;
+	Cellule cellule = *l;
+	if(equalsElement(cellule.val, v)){
+		return cellule.suiv;
+	}
+	Cellule celluleSuivante = *cellule.suiv;
+	while(!equalsElement(cellule.val, v)){
+		if(celluleSuivante.suiv == NULL){
+			return l;
+		}
+		cellule = celluleSuivante;
+		celluleSuivante = *celluleSuivante.suiv;
+	}
+	Cellule* celluleADetruire = &celluleSuivante;
+	cellule.suiv = celluleSuivante.suiv;
+	free(celluleADetruire);
+	return(l);
 }
 
 // version recursive
 Liste retirePremier_r(Element v, Liste l)
 {
-	return TODO;
+	Cellule* cellule = l;
+	if(cellule->suiv==NULL){
+		if(!equalsElement(cellule->val, v)){
+		return l;
+	}
+	}
+	if(!equalsElement(cellule->val, v)){
+		cherche_r(v, cellule->suiv);
+	}
+	if(equalsElement((cellule->suiv)->val, v)){
+		Cellule* celluleADetruire = l->suiv;
+		l->suiv = l->suiv->suiv;
+		free(celluleADetruire);
+	}
+	return(l);
 }
 
 void afficheEnvers_r(Liste l)
